@@ -21,6 +21,12 @@ export function createServer(store = createTodoStore()) {
         return send(400, { error: err.message });
       }
     }
+    const match = req.method === "DELETE" && /^\/todos\/(\d+)$/.exec(req.url);
+    if (match) {
+      if (!store.remove(Number(match[1]))) return send(404, { error: "not found" });
+      res.writeHead(204);
+      return res.end();
+    }
     return send(404, { error: "not found" });
   });
 }

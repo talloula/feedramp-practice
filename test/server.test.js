@@ -27,3 +27,15 @@ test("bad input returns 400", () => withServer(async (base) => {
   const res = await fetch(`${base}/todos`, { method: "POST", body: JSON.stringify({ title: "" }) });
   assert.equal(res.status, 400);
 }));
+
+test("delete removes a todo and returns 204", () => withServer(async (base) => {
+  const created = await (await fetch(`${base}/todos`, { method: "POST", body: JSON.stringify({ title: "x" }) })).json();
+  const res = await fetch(`${base}/todos/${created.id}`, { method: "DELETE" });
+  assert.equal(res.status, 204);
+  assert.equal((await (await fetch(`${base}/todos`)).json()).length, 0);
+}));
+
+test("delete unknown id returns 404", () => withServer(async (base) => {
+  const res = await fetch(`${base}/todos/999`, { method: "DELETE" });
+  assert.equal(res.status, 404);
+}));
