@@ -9,8 +9,19 @@ export function createServer(store = createTodoStore()) {
       res.end(JSON.stringify(body));
     };
 
+    // GET /health
+    // Liveness check. Always answers 200 with { "ok": true }.
     if (req.method === "GET" && req.url === "/health") return send(200, { ok: true });
+
+    // GET /todos
+    // Returns every to-do as a JSON array (200).
     if (req.method === "GET" && req.url === "/todos") return send(200, store.list());
+
+    // POST /todos
+    // Creates a to-do. Send a JSON body like { "title": "Buy milk" }.
+    //   201 -> the newly created to-do: { "id": 1, "title": "Buy milk", "done": false }
+    //   400 -> { "error": "..." } if the body is not valid JSON or the title
+    //          is rejected by the store (e.g. missing or empty)
     if (req.method === "POST" && req.url === "/todos") {
       let raw = "";
       for await (const chunk of req) raw += chunk;
