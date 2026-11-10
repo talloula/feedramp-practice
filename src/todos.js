@@ -17,6 +17,9 @@ export function createTodoStore() {
       todos.set(todo.id, todo);
       return todo;
     },
+    remove(id) {
+      return todos.delete(id);
+    },
     get(id) {
       return todos.get(id) ?? null;
     },
