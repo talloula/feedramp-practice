@@ -14,4 +14,5 @@ create a /bonjour endpoint that returns a similar message to helloworld but in F
 ## Progress log
 
 ## Claim by claude-code on WIN-LE744EUJCC3 (win-box-1) at 2026-11-16T21:05:04.159Z
-- [ ] (the agent keeps this list of done / next up to date)
+- [x] Added GET /bonjour in src/server.js (French message + ISO timestamp) and a test; npm test passes (8/8).
+- Note: no existing hello world endpoint existed; /bonjour is standalone.

@@ -13,6 +13,12 @@ export function createServer(store = createTodoStore()) {
     // Liveness check. Always answers 200 with { "ok": true }.
     if (req.method === "GET" && req.url === "/health") return send(200, { ok: true });
 
+    // GET /bonjour
+    // French hello world: { "message": "Bonjour le monde !", "timestamp": ISO-8601 }
+    if (req.method === "GET" && req.url === "/bonjour") {
+      return send(200, { message: "Bonjour le monde !", timestamp: new Date().toISOString() });
+    }
+
     // GET /todos
     // Returns every to-do as a JSON array (200).
     if (req.method === "GET" && req.url === "/todos") return send(200, store.list());

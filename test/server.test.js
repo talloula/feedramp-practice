@@ -15,6 +15,14 @@ test("health check", () => withServer(async (base) => {
   assert.deepEqual(await res.json(), { ok: true });
 }));
 
+test("bonjour returns French message and timestamp", () => withServer(async (base) => {
+  const res = await fetch(`${base}/bonjour`);
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.message, "Bonjour le monde !");
+  assert.ok(!Number.isNaN(Date.parse(body.timestamp)));
+}));
+
 test("create then list", () => withServer(async (base) => {
   const created = await fetch(`${base}/todos`, { method: "POST", body: JSON.stringify({ title: "buy milk" }) });
   assert.equal(created.status, 201);
