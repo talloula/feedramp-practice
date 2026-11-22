@@ -19,3 +19,6 @@ create a /bonjour endpoint that returns a similar message to helloworld but in F
 
 ## Claim by claude-code on WIN-LE744EUJCC3 (win-box-1) at 2026-11-22T04:44:32.318Z
 - [ ] (the agent keeps this list of done / next up to date)
+
+## PRAC-4 (README "built by feedramp.ai")
+- [x] Appended "Built by feedramp.ai" to README.md. Note: progress.md header was left over from PRAC-3.
